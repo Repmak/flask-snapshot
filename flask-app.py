@@ -13,6 +13,7 @@ flask_snapshot = FlaskSnapshot(app, db)
 USERNAME = 'admin'
 USER_FUNDS = 100
 
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
@@ -44,12 +45,13 @@ def withdraw():
 
 
 with app.app_context():
+    # Clear tables and re-create them.
+    db.drop_all()
     db.create_all()
-    if not Account.query.filter_by(name=USERNAME).first():
-        user = Account(name=USERNAME, balance=USER_FUNDS)
-        db.session.add(user)
-        db.session.commit()
-        print(f"Initialised {USERNAME} with {USER_FUNDS}.")
+    # Insert data.
+    user = Account(name=USERNAME, balance=USER_FUNDS)
+    db.session.add(user)
+    db.session.commit()
 
 
 if __name__ == "__main__":
