@@ -2,7 +2,7 @@ import time
 import threading
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-from lib.main import FlaskSnapshot
+from lib.FlaskSnapshot import FlaskSnapshot
 
 
 app = Flask(__name__)
